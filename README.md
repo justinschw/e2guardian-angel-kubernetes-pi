@@ -39,6 +39,10 @@ There are two sets of secrets that are needed for this cluster:
 1. Certificate and key for squid MITM decryption (secretName: squid-cert-key)
 2. CIFS secret (secretName: cifs-secret) created during the driver installation
 You have to create these manually.
+Currently the default squid configuration uses the certificate and key named
+bluestar.crt and bluestar.key, respectively. If you use different file names
+for your squid-cert-key secret, then you will have to update the default
+configuration to reflect this.
 
 The samba shares referred to in the yaml are as follows:
 //kubernetes-samba-share/e2guardian-etc
