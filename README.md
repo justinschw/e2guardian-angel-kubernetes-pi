@@ -65,14 +65,14 @@ client ntlmv2 auth = yes
 ...
 
 [e2guardian-etc]
-path = /path/to/squid-e2guardian-config/e2guardian
+path = /path/to/e2guardian-angel-default-config/e2guardian
 valid users = @sambashare
 browsable = yes
 writable = no
 read only = yes
 
 [squid-etc]
-path = /path/to/squid-e2guardian-config/squid/etc
+path = /path/to/e2guardian-angel-default-config/squid/etc
 valid users = @sambashare
 browsable = yes
 writable = no
@@ -85,8 +85,8 @@ sudo smbpasswd e2guardian
 ```
 
 To populate your samba shares with the default config,
-cd to /path/to/squid-e2guardian-config specified in your
-share and then clone the default config there:
+cd to /path/to specified in your share and then clone
+the default config there:
 git clone https://github.com/justinschw/e2guardian-angel-default-config
 
 Once your samba shares are set up properly, you should add
