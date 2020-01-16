@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: e2guardian-angel
+spec:
+  selector:
+    matchLabels:
+      run: e2guardian-angel
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        run: e2guardian-angel
+    spec:
+      containers:
+      - name: e2guardian
+        image: jusschwa/e2guardian-rpi
+        volumeMounts:
+        - name: e2guardian-etc
+          mountPath: /etc/e2guardian
+
+      - name: squid
+        image: jusschwa/docker-squid-sslbump-rpi
+        ports:
+          - containerPort: 3128
+            protocol: TCP
+        volumeMounts:
+        - name: squid-etc
+          mountPath: /usr/local/squid/etc/
+        - name: squid-ssl-directory
+          mountPath: /usr/local/squid/ssl
+      volumes:
+        - name: e2guardian-etc
+          flexVolume:
+            driver: "fstab/cifs"
+            fsType: "cifs"
+            secretRef:
+              name: "cifs-secret"   # reference to deployed secret
+            options:
+              networkPath: "//kubernetes-samba-share/e2guardian-etc"
+              mountOptions: "dir_mode=0644,file_mode=0755,noperm"
+        - name: squid-etc
+          flexVolume:
+            driver: "fstab/cifs"
+            fsType: "cifs"
+            secretRef:
+              name: "cifs-secret"   # reference to deployed secret
+            options:
+              networkPath: "//kubernetes-samba-share/squid-etc"
+              mountOptions: "dir_mode=0644,file_mode=0755,noperm"
+        - name: squid-ssl-directory
+          secret:
+            secretName: squid-cert-key

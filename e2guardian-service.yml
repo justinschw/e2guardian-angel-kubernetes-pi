@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-01-16T03:50:55Z"
+  name: e2guardian-service
+  namespace: default
+  resourceVersion: "5718001"
+  selfLink: /api/v1/namespaces/default/services/e2guardian-service
+  uid: 41975269-5093-4dbd-acbc-43825f252593
+spec:
+  clusterIP: 10.96.246.39
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 31280
+    port: 3128
+    protocol: TCP
+    targetPort: 3128
+  selector:
+    run: e2guardian-angel
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
