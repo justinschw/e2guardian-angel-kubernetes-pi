@@ -32,8 +32,8 @@ IP of any node in your cluster
 Note
 ======================
 This does not include the default configuration required to make e2guardian
-and squid talk to each other. That will be provided in a separate
-repository. Details will be included later.
+and squid talk to each other. That is provided in the following repository:
+https://github.com/justinschw/e2guardian-angel-default-config
 
 There are two sets of secrets that are needed for this cluster:
 1. Certificate and key for squid MITM decryption (secretName: squid-cert-key)
@@ -79,6 +79,11 @@ Create e2guardian user and set the samba password like so:
 ```sh
 sudo smbpasswd e2guardian
 ```
+
+To populate your samba shares with the default config,
+cd to /path/to/squid-e2guardian-config specified in your
+share and then clone the default config there:
+git clone https://github.com/justinschw/e2guardian-angel-default-config
 
 Once your samba shares are set up properly, you should add
 a DNS entry for kubernetes-samba-share and point it to the
